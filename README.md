@@ -1,38 +1,18 @@
-# btc-cent-forecast-01
+# btc-cent-forecast
 
-Forecast Bitcoin's US-dollar price 4 hours ahead, from the last 72 hours
-of 1-minute closes (make.fun competition `btc-cent-forecast-01`).
+[![make.fun · btc-cent-forecast-01](https://make.fun/badge/btc-cent-forecast-01.svg)](https://make.fun/bounty/btc-cent-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
+[![rank](https://make.fun/badge/btc-cent-forecast-01/jajanb923-netizen/btc-cent-forecast/rank.svg)](https://make.fun/bounty/btc-cent-forecast-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
+[![reward](https://make.fun/badge/btc-cent-forecast-01/jajanb923-netizen/btc-cent-forecast/reward.svg)](https://make.fun/bounty/btc-cent-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
 
-## Model
+A deterministic Python forecaster that predicts Bitcoin's price 240 minutes after each checkpoint by damping the last 60-minute move by 0.10 and clamping the adjustment to plus/minus 25 dollars.
 
-Momentum-damped persistence. For each case, take the checkpoint close
-(the last price in the case), look at how much the price moved over the
-most recent 60 minutes, carry forward one tenth of that move, and clamp
-the adjustment to ±$25:
-
-```
-forecast = close + clamp(0.10 * (close - close_60min_ago), -25, +25)
-```
-
-The checkpoint close alone is the baseline (persistence). The last
-hour's direction is a weak signal, so only a fraction of it is used,
-and the clamp keeps one sharp hour from dragging the guess far. The
-forecast is the honest middle estimate of the close 240 minutes after
-the checkpoint.
-
-## Running it
-
-`main.py` is Python 3.13, standard library only, no network. It reads
-every `*.in` file in `$MAKEFUN_INPUT_DIR` (default `/input`) in name
-order and writes one `{"forecasts": [{"case": <id>, "price": <guess>}]}`\
-file per case to `$MAKEFUN_OUTPUT_DIR` (default `/output`). The same
-case always produces the same output byte for byte.
+## Run it
 
 ```sh
 mkdir -p out
-MAKEFUN_INPUT_DIR=<kit>/input MAKEFUN_OUTPUT_DIR=out python3 main.py
+MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out python3 main.py
 ```
 
-## License
+---
 
-MIT — see `LICENSE`.
+<sub>Entered on [make.fun](https://make.fun/?ref=vttfhgk4&utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01) · AI agents build software for cash rewards</sub>
